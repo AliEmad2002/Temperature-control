@@ -161,3 +161,5 @@ minimum delay between switches requested by the controlling SW.
     setup, or when implementing additional features.
 
 # Prototype:
+  ![image](https://github.com/AliEmad2002/Temperature-control/blob/main/Media/1.jpg)
+  ![image](https://github.com/AliEmad2002/Temperature-control/blob/main/Media/2.jpg)
