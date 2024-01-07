@@ -9,43 +9,14 @@ pre-defined socket / header for this small amplifier test PCB. This
 accelerates prototyping phase and saves money.
 
 1.  Amplifier's pre-defined block diagram:
+ 
+   ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/95e95426-62af-4128-9db6-a1842bb5dd44)
 
-GND
 
-+3.3V
+3.  Amplifier's pre-defined input / output header position:
 
-Output (3-pins)
+![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/0eabcd61-d681-4fa6-add0-235504eaeda4)
 
-Thermocouple
-
-Ctrl (3-pins)
-
-Amp. Circuit
-
-2.  Amplifier's pre-defined input / output header position:
-
-+3.3V
-
-OUT3
-
-OUT2
-
-OUT1
-
-GND
-
-CTRL3
-
-CTRL2
-
-CTRL1
-
-TC-
-
-TC+
-
-![](./images/media/image1.png){width="1.9180555555555556in"
-height="1.9220833333333334in"}
 
 # Tested amplifiers:
 
@@ -55,11 +26,8 @@ Using BC337 BJT NPN transistor, the following circuit is implemented. It
 gives a gain of 5 \[V/V\], enabling an ADC resolution of
 $\frac{1}{4096}*\frac{3.3}{5} \approx 161\mu V/LSB$
 
-![A diagram of a circuit Description automatically
-generated](./images/media/image2.png){width="1.5608661417322836in"
-height="1.5883311461067366in"}![](./images/media/image3.png){width="1.5909722222222222in"
-height="1.5833333333333333in"}![](./images/media/image4.png){width="1.2604166666666667in"
-height="1.5833333333333333in"}
+![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/c9e80349-e4bf-482d-a522-7b8057c19882)
+
 
 ### Design notes:
 
@@ -86,11 +54,8 @@ height="1.5833333333333333in"}
     $\frac{1}{4096}*\frac{3.3}{33} \approx 24.4\mu V/LSB$. It also
     provides stable automatic offset calibration.
 
-![A diagram of a circuit Description automatically
-generated](./images/media/image5.png){width="3.7870100612423445in"
-height="2.578138670166229in"}![](./images/media/image6.png){width="2.5896084864391953in"
-height="2.2895505249343833in"}![](./images/media/image7.png){width="2.607741688538933in"
-height="2.25in"}
+![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/7e8926f5-78db-4b62-bcbf-2a3ff68d7047)
+
 
 ### Design notes:
 
@@ -121,13 +86,14 @@ height="2.25in"}
     TC only (**CTRL1** is open-circuit). Hence, output value is equal
     to:
 
-> $$\mathbf{A}_{\mathbf{V}}\mathbf{*\ }\mathbf{v}_{\mathbf{TC}}\mathbf{+}\mathbf{v}_{\mathbf{offset}}$$
->
-> By subtracting offset value (previously obtained at a periodic
-> calibration) from output's value, thermocouple's voltage can be
-> obtained as follows:
->
-> $$\mathbf{v}_{\mathbf{TC}}\mathbf{= \ }\frac{\mathbf{v}_{\mathbf{out}}\mathbf{- \ }\mathbf{v}_{\mathbf{offset}}}{\mathbf{A}_{\mathbf{V}}}$$
+    ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/5a5d7dec-b789-4011-b81c-bc7fd8c2eb34)
+
+ By subtracting offset value (previously obtained at a periodic
+ calibration) from output's value, thermocouple's voltage can be
+ obtained as follows:
+ 
+ ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/8116687f-bcb0-440d-9efe-1180ad474d54)
+
 
 # Temperate calculation:
 
@@ -137,27 +103,29 @@ junction is assumed to be room temperature, which could be measured
 using STM32's on-chip temperature sensor.
 
 Temperature can be calculated as follows:
-
-$$\mathbf{v(T)}_{\mathbf{|}\mathbf{T}_{\mathbf{ref}}}\mathbf{=}\mathbf{v(T)}_{\mathbf{|0}}\mathbf{-}{\mathbf{v(}\mathbf{T}_{\mathbf{ref}}\mathbf{)}}_{\mathbf{|0}}$$
+![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/fbe1d865-a0d8-4501-9de6-a61312b0ef69)
 
 ### In the above equation:
-
--   The term $\mathbf{v(T)}_{\mathbf{|}\mathbf{T}_{\mathbf{ref}}}$ is
-    thermocouple's voltage $\mathbf{v}_{\mathbf{TC}}$ (Previous section
+-   The term ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/161006cf-5436-459a-af28-b2df7b0c0822)
+ is
+    thermocouple's voltage ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/98d090fb-3098-4509-9f8b-17cd467ff7ae)
+ (Previous section
     discussed how to obtain it).
 
--   The term
-    ${\mathbf{v(}\mathbf{T}_{\mathbf{ref}}\mathbf{)}}_{\mathbf{|0}}$
-    could be obtained by interpolating output of the on-chip temperature
+-   The term ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/fb8a0fff-e5ae-4892-8ddd-256bf0fe3618)
+could be obtained by interpolating output of the on-chip temperature
     sensor, in thermocouple's reference table.
 
--   Hence, the term $\mathbf{v(T)}_{\mathbf{|0}}$ can be obtained from
+-   Hence, the term ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/90473bc6-2727-43f4-952e-d264048aa52e)
+ can be obtained from
     the equation as follows:
+    ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/5adbce2b-f01c-4b96-ae38-c8867901ec4d)
 
-> $$\mathbf{v(T)}_{\mathbf{|0}}\mathbf{=}\mathbf{v(T)}_{\mathbf{|}\mathbf{T}_{\mathbf{ref}}}\mathbf{+}{\mathbf{v(}\mathbf{T}_{\mathbf{ref}}\mathbf{)}}_{\mathbf{|0}}$$
 
--   Voltage $\mathbf{v(T)}_{\mathbf{|0}}$ is then interpolated in
-    thermocouple's reference table to obtain value of $\mathbf{T}$.
+-   Voltage ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/5524a1a0-d8ce-4411-b735-7b9675c14b82)
+ is then interpolated in
+    thermocouple's reference table to obtain value of ![image](https://github.com/AliEmad2002/Temperature-control/assets/99054912/40c81605-2ee4-4bcd-af6f-93cfb6206087)
+.
 
 # Noise elimination:
 
