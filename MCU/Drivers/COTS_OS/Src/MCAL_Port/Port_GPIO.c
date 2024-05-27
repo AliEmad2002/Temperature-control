@@ -10,7 +10,7 @@
 #include "stm32f103xb.h"
 #include "stm32f1xx_hal.h"
 #include "MCAL_Port/Port_DIO.h"
-#include "MCAL_Port/Port_UART.h"
+//#include "MCAL_Port/Port_UART.h"
 
 extern SPI_TypeDef* const pxPortSpiArr[];
 

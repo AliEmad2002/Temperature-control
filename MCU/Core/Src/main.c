@@ -17,7 +17,7 @@
 #include <string.h>
 #include "LIB/HysteresisFilter/HysteresisFilter.h"
 #include "LIB/LowPassFilter/LowPassFilter.h"
-#include "LIB/PID/PID.h"
+//#include "LIB/PID/PID.h"
 
 /*	MCAL (Ported)	*/
 #include "MCAL_Port/Port_HW.h"
@@ -61,7 +61,7 @@ static void vRotaryEncoderChangeCallback(void* pvParams);
 /*******************************************************************************
  * Helping macros:
  ******************************************************************************/
-#define iINITIAL_SET_POINT		380
+#define iINITIAL_SET_POINT		150
 
 /*******************************************************************************
  * Global variables:
@@ -183,9 +183,6 @@ static void vInitTask(void* pvParams)
 
 	/*	Startup delay	*/
 	vTaskDelay(pdMS_TO_TICKS(100));
-
-	/*	Initialize USB CDC	*/
-	vHOS_UsbCdc_init();
 
 	/*	Initialize ADC HAL driver	*/
 	vHOS_ADC_init();

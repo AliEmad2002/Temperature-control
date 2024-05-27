@@ -16,7 +16,7 @@
 /*	MCAL (Ported)	*/
 #include "MCAL_Port/Port_DIO.h"
 #include "MCAL_Port/Port_Print.h"
-#include "MCAL_Port/Port_Breakpoint.h"
+//#include "MCAL_Port/Port_Breakpoint.h"
 
 /*	HAL-OS	*/
 #include "RTOS_PRI_Config.h"

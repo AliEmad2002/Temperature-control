@@ -29,13 +29,6 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Drivers/COTS_OS</name>
-			<type>2</type>
-			<locationURI>COTS_OS_LOC</locationURI>
-		</link>
-	</linkedResources>
 	<variableList>
 		<variable>
 			<name>COTS_OS_LOC</name>
