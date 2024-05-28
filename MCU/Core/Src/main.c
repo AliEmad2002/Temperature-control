@@ -61,7 +61,7 @@ static void vRotaryEncoderChangeCallback(void* pvParams);
 /*******************************************************************************
  * Helping macros:
  ******************************************************************************/
-#define iINITIAL_SET_POINT		150
+#define iINITIAL_SET_POINT		120
 
 /*******************************************************************************
  * Global variables:
@@ -149,7 +149,9 @@ xHOS_RotaryEncoder_t xRotaryEncoder = {
 		.ucBPort = 1,
 		.ucBPin = 9,
 		.uiSamplePeriodMs = 1,
-		.ucEnableSpeedUpdate = 0,
+		.uiSpeedUpdatePeriodMs = 1,
+		.uiSpeedDeadTimeMs = 10,
+		.ucEnableSpeedUpdate = 1,
 		.ucEnableCWCallback = 1,
 		.ucEnableCCWCallback = 1,
 		.pfCWCallback = vRotaryEncoderChangeCallback,
