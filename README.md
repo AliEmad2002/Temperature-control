@@ -1,4 +1,8 @@
-# Prototyping:
+## Prototype:
+  ![image](https://github.com/AliEmad2002/Temperature-control/blob/main/Media/1.jpg)
+  ![image](https://github.com/AliEmad2002/Temperature-control/blob/main/Media/2.jpg)
+  
+  https://github.com/AliEmad2002/Temperature-control/assets/99054912/595d4f96-e840-4a2f-98b4-53958e884d55
 
 ## Introduction:
 
@@ -159,9 +163,3 @@ minimum delay between switches requested by the controlling SW.
 
 -   SW is modular and can be easily modified when using different HW
     setup, or when implementing additional features.
-
-# Prototype:
-  ![image](https://github.com/AliEmad2002/Temperature-control/blob/main/Media/1.jpg)
-  ![image](https://github.com/AliEmad2002/Temperature-control/blob/main/Media/2.jpg)
-  
-  https://github.com/AliEmad2002/Temperature-control/assets/99054912/595d4f96-e840-4a2f-98b4-53958e884d55
