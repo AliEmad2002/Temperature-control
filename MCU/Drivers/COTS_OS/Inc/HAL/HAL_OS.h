@@ -17,6 +17,7 @@
 #include "HAL/CalibratableAmplifier/CalibratableAmplifier.h"
 #include "HAL/Thermocouple/Thermocouple.h"
 #include "HAL/Relay/Relay.h"
+#include "HAL/UsbCdc/UsbCdc.h"
 
 
 #endif /* HAL_OS_INC_HAL_OS_H_ */

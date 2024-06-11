@@ -64,7 +64,7 @@ uint8_t ucLIB_LinearEqnsSolver_Solve(float* pfAugArr, uint8_t ucN, float* pfSol)
         pfSol[i] /= pfAugArr[i * (ucN + 1) + i];
 
         // Check for NaN solution:
-        if (pfSol[i] == NaN)
+        if (pfSol[i] == NAN)
         	return 0;
 
     }

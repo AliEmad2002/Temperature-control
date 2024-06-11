@@ -15,6 +15,7 @@
 #include "MCAL_Port/Port_AFIO.h"
 #include "MCAL_Port/Port_GPIO.h"
 #include "MCAL_Port/Port_ADC.h"
+#include "MCAL_Port/Port_USB.h"
 
 void vPort_HW_init(void)
 {
@@ -23,4 +24,7 @@ void vPort_HW_init(void)
 
 	/*	Initialize ADC	*/
 	vPort_ADC_init(0);
+
+	/*	Initialize USB HW	*/
+	vPort_USB_initHardware();
 }

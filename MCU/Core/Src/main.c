@@ -44,6 +44,10 @@ static StackType_t puxTask3Stack[128];
 static StaticTask_t xTask3StaticHandle;
 static TaskHandle_t xTask3Handle;
 
+static StackType_t puxTask4Stack[128];
+static StaticTask_t xTask4StaticHandle;
+static TaskHandle_t xTask4Handle;
+
 static StackType_t puxTaskInitStack[200];
 static StaticTask_t xTaskInitStaticHandle;
 static TaskHandle_t xTaskInitHandle;
@@ -83,8 +87,8 @@ xHOS_CalibratableAmplifier_t xAmplifier = {
 
 	.iGainUVPV = 33000000,
 
-	.pucCtrlPortArr = pucCtrlPortArr,
-	.pucCtrlPinArr = pucCtrlPinArr,
+	.pucCtrlPortArr = (uint8_t*)pucCtrlPortArr,
+	.pucCtrlPinArr = (uint8_t*)pucCtrlPinArr,
 	.ucNumberOfCtrlPins = 3,
 
 	.ucAmpOnCtrlHighStateMask = (0 << 0) | (0 << 1) | (0 << 2),
@@ -175,16 +179,14 @@ volatile uint8_t ucDisplayMode = 0;
  ******************************************************************************/
 static void vInitTask(void* pvParams)
 {
-	volatile int32_t* foo = 0;
-	foo = &iTTC;
-	volatile int32_t* foo1 = 0;
-	foo1 = &iTSP;
-
 	/*	Initialize MCU's hardware	*/
 	vPort_HW_init();
 
 	/*	Startup delay	*/
 	vTaskDelay(pdMS_TO_TICKS(100));
+
+	/*	Initialize USB CDC	*/
+	vHOS_UsbCdc_init();
 
 	/*	Initialize ADC HAL driver	*/
 	vHOS_ADC_init();
@@ -235,7 +237,7 @@ static void vMainTask1(void* pvParams)
 	while(1)
 	{
 		/*	Read thermocouple (Raw)	*/
-		if (!ucHOS_Thermocouple_getTemperature(&xThermocouple, &iT))
+		if (!ucHOS_Thermocouple_getTemperature(&xThermocouple, (int32_t*)&iT))
 			iT = xThermocouple.uiTLPrev * 1000;
 
 		/*	Read thermocouple (Filtered)	*/
@@ -307,6 +309,41 @@ static void vMainTask3(void* pvParams)
 
 		/*	Change mode to normal mode	*/
 		ucDisplayMode = 0;
+	}
+}
+
+/*	Logs device's data	*/
+static void vMainTask4(void* pvParams)
+{
+	TickType_t xLastWkpTime = xTaskGetTickCount();
+
+//	char str[10];
+	uint8_t ucSOF = 0x03;
+	uint8_t ucEOF = 0xFC;
+
+	/*	Lock USB CDC 0	*/
+	ucHOS_UsbCdc_lockTransmission(0, portMAX_DELAY);
+
+	while(1)
+	{
+		/*	print temperature and relay state	*/
+//		sprintf(str, "%d, %d\r\n", (int)iTTC, (int)xHystFilter.ucCurrentOutputState);
+
+		/*	Send	*/
+//		vHOS_UsbCdc_send(0, (uint8_t*)str, strlen(str));
+
+		vHOS_UsbCdc_send(0, &ucSOF, sizeof(uint8_t));
+		vHOS_UsbCdc_send(0, (uint8_t*)&iTTC, sizeof(int32_t));
+		vHOS_UsbCdc_send(0, &(xHystFilter.ucCurrentOutputState), sizeof(uint8_t));
+		vHOS_UsbCdc_send(0, &ucEOF, sizeof(uint8_t));
+
+//		vHOS_UsbCdc_send(0, (uint8_t*)&iTTC, sizeof(int32_t));
+
+//		/*	Send relay state	*/
+//		vHOS_UsbCdc_send(0, &(xHystFilter.ucCurrentOutputState), sizeof(uint8_t));
+
+		/*	Delay until next sample	*/
+		vTaskDelayUntil(&xLastWkpTime, pdMS_TO_TICKS(100));
 	}
 }
 
@@ -398,6 +435,15 @@ static void init_main_tasks(void)
 		configHOS_SOFT_REAL_TIME_TASK_PRI,
 		puxTask3Stack,
 		&xTask3StaticHandle	);
+
+	xTask4Handle = xTaskCreateStatic(
+		vMainTask4,
+		"mainTask4",
+		128,
+		NULL,
+		configHOS_SOFT_REAL_TIME_TASK_PRI,
+		puxTask4Stack,
+		&xTask4StaticHandle	);
 }
 
 /*******************************************************************************
