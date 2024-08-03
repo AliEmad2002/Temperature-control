@@ -259,7 +259,7 @@ void vPort_GPIO_initDacChannelPinAsOutput(	uint8_t ucDacUnitNumber,
 	vPort_GPIO_initTimerChannelPinAsOutput(ucDacUnitNumber, ucDacChannelNumber, ucMapNumber);
 }
 
-void vPort_GPIO_initAdcChannelPinAsOutput(	uint8_t ucAdcUnitNumber,
+void vPort_GPIO_initAdcChannelPinAsInput(	uint8_t ucAdcUnitNumber,
 											uint8_t ucAdcChannelNumber	)
 {
 	vLib_ASSERT(ucAdcChannelNumber <= 9, 0);
